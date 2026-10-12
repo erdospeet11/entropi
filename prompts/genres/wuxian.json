@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Martial heroes and/or cultivators striving for power, honor, or transcendence",
+    "Clans, sects, or schools with distinct martial or spiritual styles",
+    "Jianghu: a world of roaming heroes, vendettas, and shifting alliances"
+  ],
+  "typical_settings": [
+    "Ancient or pseudo-historical East Asian landscapes",
+    "Sect compounds, sacred mountains, martial arts arenas",
+    "Secluded training grounds, mystical realms"
+  ],
+  "typical_conflicts": [
+    "Clan rivalries and sect politics",
+    "Personal vendetta vs moral codes",
+    "The cost of pursuing ultimate power or transcendence"
+  ],
+  "protagonist_archetypes": [
+    "Young disciple with hidden potential",
+    "Rebellious cultivator outside orthodox paths",
+    "Fallen master seeking redemption"
+  ],
+  "tone_guidelines": "Heroic and melodramatic, with a mix of honor, tragedy, and soaring action.",
+  "must_include": {
+    "required_elements": [
+      "At least one martial art or cultivation technique that is clearly named or described",
+      "Clear hierarchy or structure among sects, clans, or schools",
+      "A conflict between personal feelings (love, loyalty) and martial/cultivation obligations"
+    ],
+    "forbidden_elements": [
+      "Purely modern, non-martial setting with no sense of cultivation or martial ethos"
+    ]
+  }
+}
