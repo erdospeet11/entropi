@@ -1,0 +1,31 @@
+{
+  "core_features": [
+    "Primary goal is to evoke fear, dread, or unease",
+    "Characters are threatened physically, psychologically, or spiritually",
+    "The unknown or the uncontrollable plays a key role"
+  ],
+  "typical_settings": [
+    "Isolated houses, hospitals, forests, small towns",
+    "Any place that can become claustrophobic or unsettling"
+  ],
+  "typical_conflicts": [
+    "Survival against a monster, entity, or curse",
+    "Uncovering a horrifying truth",
+    "Trying and often failing to maintain sanity and safety"
+  ],
+  "protagonist_archetypes": [
+    "Ordinary people in extraordinary terror",
+    "Researchers, investigators, or skeptics confronting the uncanny"
+  ],
+  "tone_guidelines": "Oppressive, tense, unsettling; moments of false safety are allowed but fragile.",
+  "must_include": {
+    "required_elements": [
+      "At least one truly frightening or disturbing event",
+      "A threat that cannot be easily neutralized or fully understood",
+      "Some lasting damage: not everyone walks away unscarred"
+    ],
+    "forbidden_elements": [
+      "Completely trivializing or explaining away the horror so it becomes a simple puzzle or joke"
+    ]
+  }
+}

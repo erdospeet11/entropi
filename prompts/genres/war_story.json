@@ -1,0 +1,32 @@
+{
+  "core_features": [
+    "Set in or directly around an armed conflict (historical, near-future, or speculative)",
+    "Focus on soldiers, civilians, or leaders affected by war",
+    "Exploration of courage, trauma, camaraderie, and moral ambiguity"
+  ],
+  "typical_settings": [
+    "Battlefields, trenches, urban warzones",
+    "Command posts, barracks, hospitals",
+    "Occupied towns or refugee camps"
+  ],
+  "typical_conflicts": [
+    "Survival in combat or under occupation",
+    "Obeying orders vs personal morality",
+    "Protecting comrades or civilians under fire"
+  ],
+  "protagonist_archetypes": [
+    "Front-line soldier, medic, officer, resistance fighter",
+    "Civilian caught in the conflict with a crucial role"
+  ],
+  "tone_guidelines": "Serious, often grim; can include hope and solidarity but does not glorify war naively.",
+  "must_include": {
+    "required_elements": [
+      "At least one battle or direct experience of combat or its immediate aftermath",
+      "Visible effects of war on bodies, minds, or communities",
+      "Some moral or emotional cost to participation in the conflict"
+    ],
+    "forbidden_elements": [
+      "Purely glamorous, consequence-free depiction of war"
+    ]
+  }
+}

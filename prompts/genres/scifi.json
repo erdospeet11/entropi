@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Speculative science or technology central to the premise",
+    "World shaped by advanced tech, space travel, AI, or altered biology",
+    "Exploration of consequences of technology or scientific ideas"
+  ],
+  "typical_settings": [
+    "Starships, space stations, alien worlds",
+    "Near-future Earth with pervasive tech",
+    "Megacities dominated by corporations or systems"
+  ],
+  "typical_conflicts": [
+    "Human vs system or megacorp",
+    "Explorers confronting unknown phenomena",
+    "Ethical conflict around AI, cloning, surveillance, or transhumanism"
+  ],
+  "protagonist_archetypes": [
+    "Engineer, pilot, scientist, hacker",
+    "Soldier in a high-tech army",
+    "Civilian caught in a massive technological event"
+  ],
+  "tone_guidelines": "Often thoughtful, tense, or awe-filled; can be optimistic, grim, or cautionary.",
+  "must_include": {
+    "required_elements": [
+      "At least one clearly described advanced technology or scientific concept that matters to the plot",
+      "A visible consequence (social or personal) of that technology or concept",
+      "At least one location that is clearly not a mundane present-day setting"
+    ],
+    "forbidden_elements": [
+      "Unexplained magic that ignores scientific framing (unless clearly framed as advanced tech or unknown physics)"
+    ]
+  }
+}

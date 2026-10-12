@@ -1,0 +1,32 @@
+{
+  "core_features": [
+    "The world is in the process of ending or collapsing during the story",
+    "Events are large-scale and catastrophic, not just local personal issues",
+    "Characters act under extreme time pressure and existential stakes"
+  ],
+  "typical_settings": [
+    "Cities in mid-collapse, global disasters unfolding",
+    "Command centers, evacuation routes, shelters",
+    "Places where the scale of destruction is visible"
+  ],
+  "typical_conflicts": [
+    "Attempting to prevent or mitigate the apocalypse",
+    "Choosing who/what can be saved under impossible constraints",
+    "Moral choices under extreme global pressure"
+  ],
+  "protagonist_archetypes": [
+    "Scientists, leaders, soldiers, or ordinary people thrown into critical roles",
+    "People torn between saving loved ones and saving many"
+  ],
+  "tone_guidelines": "Intense, high-stakes, often tragic or bittersweet.",
+  "must_include": {
+    "required_elements": [
+      "Clear description of what the apocalypse is (plague, invasion, cosmic event, etc.)",
+      "A sense that time is running out",
+      "Decisions whose consequences affect more than just the protagonist"
+    ],
+    "forbidden_elements": [
+      "Tiny personal drama with no connection to the larger catastrophic context"
+    ]
+  }
+}

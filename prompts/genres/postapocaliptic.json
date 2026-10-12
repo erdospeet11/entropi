@@ -1,0 +1,34 @@
+{
+  "core_features": [
+    "The catastrophe is already over; survivors live in its long shadow",
+    "Scarcity of food, fuel, medicine, or trust shapes every choice",
+    "Ruined infrastructure and scavenged technology define daily life"
+  ],
+  "typical_settings": [
+    "Collapsed cities, overgrown highways, dead suburbs",
+    "Hardscrabble settlements, trading posts, fortified compounds",
+    "Wastelands, irradiated zones, reclaimed wilderness"
+  ],
+  "typical_conflicts": [
+    "Competing survivor factions over water, salvage, or safe ground",
+    "Whether to rebuild community or survive at others' expense",
+    "Confronting remnants of the old world (cults, warlords, buried tech)"
+  ],
+  "protagonist_archetypes": [
+    "Scavenger, trader, or settlement lookout",
+    "Someone carrying knowledge from before the fall",
+    "A drifter bound to a found-family or a debt"
+  ],
+  "tone_guidelines": "Dusty, weary, and grounded; hope is local and expensive, never cinematic salvation.",
+  "must_include": {
+    "required_elements": [
+      "Clear signs that civilization already fell (ruins, scavenged gear, oral history of the event)",
+      "A scarcity or resource problem that forces a hard tradeoff",
+      "At least one faction, settlement, or code of wasteland survival"
+    ],
+    "forbidden_elements": [
+      "The apocalypse still unfolding as the main event (that belongs to the apocalypse genre)",
+      "Easy restoration of the old world with no cost"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Espionage during or closely inspired by the Cold War era",
+    "Ideological tension, paranoia, and divided loyalties",
+    "Use of tradecraft: dead drops, codes, surveillance, counterintelligence"
+  ],
+  "typical_settings": [
+    "Berlin, Moscow, Washington, London, or proxy states during the Cold War",
+    "Embassies, safe houses, border crossings, train stations",
+    "Grey bureaucratic offices and smoky bars"
+  ],
+  "typical_conflicts": [
+    "Double agents and moles",
+    "Operations that risk triggering political crises",
+    "Agents forced to choose between cause, country, and personal ties"
+  ],
+  "protagonist_archetypes": [
+    "Intelligence officer, field agent, analyst",
+    "Reluctant recruit or asset",
+    "Burnt-out veteran spy"
+  ],
+  "tone_guidelines": "Tense, paranoid, often understated; victories are ambiguous.",
+  "must_include": {
+    "required_elements": [
+      "At least one operation or mission involving classic espionage tradecraft",
+      "A meaningful ideological or political context (East vs West or similar)",
+      "Ambiguity about who can be trusted"
+    ],
+    "forbidden_elements": [
+      "Overt superhero-like action ignoring the grounded, realistic feel"
+    ]
+  }
+}

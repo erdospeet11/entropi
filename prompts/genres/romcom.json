@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Central romantic relationship with a comedic or light tone",
+    "Misunderstandings, awkward situations, and emotional growth",
+    "Ultimately uplifting or at least hopeful resolution"
+  ],
+  "typical_settings": [
+    "Workplaces, cafes, city streets, shared apartments",
+    "Family gatherings, weddings, parties"
+  ],
+  "typical_conflicts": [
+    "Miscommunication or mistaken identities",
+    "Clashing life goals or values",
+    "External obstacles to being together (jobs, families, timing)"
+  ],
+  "protagonist_archetypes": [
+    "Two flawed but likable leads (any gender pairing)",
+    "Friends-to-lovers, enemies-to-lovers, fake dating participants"
+  ],
+  "tone_guidelines": "Light, witty, emotionally warm; can include moments of genuine pain, but overall comforting.",
+  "must_include": {
+    "required_elements": [
+      "Two main romantic leads with clear chemistry",
+      "Several comedic or awkward situations tied to the romantic plot",
+      "A turning point where emotional honesty becomes necessary",
+      "An ending that is at least emotionally hopeful for the relationship"
+    ],
+    "forbidden_elements": [
+      "Unrelentingly bleak or nihilistic endings",
+      "Romance completely sidelined by unrelated plotlines"
+    ]
+  }
+}

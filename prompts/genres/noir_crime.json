@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Crime, moral ambiguity, and corruption at the center",
+    "Cynical or disillusioned tone",
+    "Protagonist entangled in a web of lies, power, and betrayal"
+  ],
+  "typical_settings": [
+    "Gritty city streets, back alleys",
+    "Bars, diners, police stations, cheap offices",
+    "Luxury spaces that contrast with seedy underworld"
+  ],
+  "typical_conflicts": [
+    "Investigating a crime that leads to deeper rot",
+    "Being hired into a job that goes wrong",
+    "Cover-ups involving powerful figures"
+  ],
+  "protagonist_archetypes": [
+    "Private detective, small-time crook, cop on the edge",
+    "Reluctant witness or fixer",
+    "Someone who can’t fully escape their own flaws"
+  ],
+  "tone_guidelines": "Cynical, fatalistic, often with hard-boiled narration and sharp dialogue.",
+  "must_include": {
+    "required_elements": [
+      "At least one serious crime as a key driver of the plot",
+      "Systemic corruption or moral compromise beyond a single 'bad person'",
+      "Moments where the protagonist’s own morality is tested or compromised"
+    ],
+    "forbidden_elements": [
+      "Neat and purely idealistic resolution where the system is clean and everyone is happy"
+    ]
+  }
+}

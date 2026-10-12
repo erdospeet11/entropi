@@ -1,0 +1,33 @@
+{
+  "core_features": [
+    "Supernatural or magical elements hidden within or layered over a modern/urban setting",
+    "Coexistence or collision of mundane life and the magical world",
+    "Secret societies, supernatural factions, or hidden laws"
+  ],
+  "typical_settings": [
+    "Modern city streets, bars, clubs, subways",
+    "Hidden magical districts or sanctuaries",
+    "Ordinary apartments that hide supernatural activity"
+  ],
+  "typical_conflicts": [
+    "Protecting humans from unseen supernatural threats",
+    "Balancing normal life with magical duties",
+    "Inter-faction struggles within the hidden magical world"
+  ],
+  "protagonist_archetypes": [
+    "Reluctant mage or witch with a day job",
+    "Supernatural detective or investigator",
+    "Half-human, half-supernatural misfit"
+  ],
+  "tone_guidelines": "Mix of everyday realism and uncanny; can be snarky, gritty, or melancholic.",
+  "must_include": {
+    "required_elements": [
+      "Clear modern/urban details (tech, infrastructure, slang)",
+      "At least one supernatural being or magical entity interacting with everyday human spaces",
+      "A tension between 'normal life' and the magical world"
+    ],
+    "forbidden_elements": [
+      "Purely secondary-world medieval fantasy without any modern urban layer"
+    ]
+  }
+}
