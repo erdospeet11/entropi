@@ -1,0 +1,26 @@
+# TurnPayload from schemas.py.
+# Order: narration, choices, state_delta, visual_key.
+# state_delta order: health, hunger, location, add_items, remove_items.
+
+root ::= "{" ws turn-fields "}" ws
+
+turn-fields ::= "\"narration\"" ws ":" ws string "," ws "\"choices\"" ws ":" ws choices "," ws "\"state_delta\"" ws ":" ws state-delta "," ws "\"visual_key\"" ws ":" ws visual-key
+
+choices ::= "[" ws string "," ws string ("," ws string)? "]" ws
+
+state-delta ::= "{" ws "\"health\"" ws ":" ws integer "," ws "\"hunger\"" ws ":" ws integer "," ws "\"location\"" ws ":" ws location "," ws "\"add_items\"" ws ":" ws string-list "," ws "\"remove_items\"" ws ":" ws string-list "}" ws
+
+location ::= "null" ws | string
+
+visual-key ::= ("null" | "\"forest_clearing\"" | "\"forest_night\"" | "\"forest_path\"" | "\"tavern_interior\"") ws
+
+string-list ::= "[" ws (string ("," ws string)*)? "]" ws
+
+string ::= "\"" chars "\"" ws
+
+chars ::= ([^"\\\x7F\x00-\x1F] | "\\" (["\\bfnrt] | "u" [0-9a-fA-F]{4}))+
+
+integer ::= ("-"? ([0-9] | [1-9] [0-9]{0,15})) ws
+
+# Optional space, same convention as llama.cpp grammars/json.gbnf.
+ws ::= | " " | "\n" [ \t]{0,20}
