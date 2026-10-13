@@ -100,12 +100,14 @@ class GameState(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
+    name: str = "Wanderer"
     health: int
     health_max: int = Field(ge=0)
     hunger: int
     hunger_max: int = Field(ge=0)
     location: str = Field(min_length=1)
     inventory: list[str] = Field(default_factory=list)
+    timeline: list[str] = Field(default_factory=list)
     visual_key: str | None = None
 
     @field_validator("visual_key", mode="before")
@@ -132,11 +134,13 @@ def apply_turn(state: GameState, turn: TurnPayload) -> GameState:
             inventory.remove(item)
 
     return GameState(
+        name=state.name,
         health=state.health + delta.health,
         health_max=state.health_max,
         hunger=state.hunger + delta.hunger,
         hunger_max=state.hunger_max,
         location=delta.location if delta.location is not None else state.location,
         inventory=inventory,
+        timeline=list(state.timeline),
         visual_key=turn.visual_key if turn.visual_key is not None else state.visual_key,
     )
