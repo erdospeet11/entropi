@@ -49,18 +49,8 @@ class StartSessionTests(unittest.TestCase):
         self.assertEqual(body["state"]["hunger"], 3)
         self.assertEqual(body["state"]["hunger_max"], 10)
         self.assertEqual(body["state"]["location"], "Forest clearing")
-        self.assertEqual(
-            body["state"]["inventory"],
-            ["Rusty lantern", "Pocket knife", "2 coins"],
-        )
-        self.assertEqual(
-            body["state"]["timeline"],
-            [
-                "You woke up in the forest",
-                "A raven watched from a branch",
-                "You found a path heading north",
-            ],
-        )
+        self.assertEqual(body["state"]["inventory"], ["Rusty sword", "Heal potion"])
+        self.assertEqual(body["state"]["timeline"], [])
         self.assertEqual(body["state"]["visual_key"], "forest_clearing")
         self.assertEqual(sessions.SESSIONS[body["id"]].state.name, "Wanderer")
 
@@ -99,7 +89,7 @@ class TurnTests(unittest.TestCase):
         self.assertEqual(body["state"]["health"], 9)
         self.assertEqual(body["state"]["hunger"], 4)
         self.assertEqual(body["state"]["location"], "North path")
-        self.assertEqual(body["state"]["inventory"], ["Rusty lantern", "Pocket knife", "Rope"])
+        self.assertEqual(body["state"]["inventory"], ["Rusty sword", "Heal potion", "Rope"])
         self.assertEqual(body["state"]["visual_key"], "forest_path")
         self.assertEqual(body["state"]["timeline"][-1], FIXED_TURN["narration"])
         self.assertEqual(sessions.SESSIONS[self.session_id].choices, ["Press on", "Turn back"])
@@ -115,8 +105,68 @@ class TurnTests(unittest.TestCase):
         self.assertEqual(self.actions, ["Wait by the tree"])
         self.assertEqual(body["payload"], FIXED_TURN)
         self.assertEqual(body["state"]["health"], 9)
-        self.assertEqual(body["state"]["inventory"], ["Rusty lantern", "Pocket knife", "Rope"])
+        self.assertEqual(body["state"]["inventory"], ["Rusty sword", "Heal potion", "Rope"])
         self.assertEqual(body["state"]["timeline"][-1], "The lantern swings as you step forward.")
+
+    def test_supplied_narration_is_what_gets_stored(self) -> None:
+        response = self.client.post(
+            f"/sessions/{self.session_id}/turns",
+            json={
+                "text": "I search for food",
+                "narration": "  You find bitter berries under the ferns.  ",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(self.actions, ["I search for food"])
+        self.assertEqual(body["payload"]["narration"], "You find bitter berries under the ferns.")
+        self.assertEqual(
+            body["state"]["timeline"][-1],
+            "You find bitter berries under the ferns.",
+        )
+        self.assertEqual(body["state"]["health"], 9)
+
+    def test_summary_is_the_timeline_entry(self) -> None:
+        response = self.client.post(
+            f"/sessions/{self.session_id}/turns",
+            json={
+                "text": "I search for food",
+                "narration": "You find bitter berries under the ferns. They stain your fingers.",
+                "summary": "  You found bitter berries.  ",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(
+            body["payload"]["narration"],
+            "You find bitter berries under the ferns. They stain your fingers.",
+        )
+        self.assertEqual(body["state"]["timeline"], ["You found bitter berries."])
+
+    def test_blank_summary_is_rejected(self) -> None:
+        response = self.client.post(
+            f"/sessions/{self.session_id}/turns",
+            json={
+                "text": "I search for food",
+                "narration": "You find bitter berries.",
+                "summary": "   ",
+            },
+        )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(sessions.SESSIONS[self.session_id].state.timeline, [])
+
+    def test_blank_narration_is_rejected(self) -> None:
+        response = self.client.post(
+            f"/sessions/{self.session_id}/turns",
+            json={"text": "I search for food", "narration": "   "},
+        )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(self.actions, [])
+        self.assertEqual(sessions.SESSIONS[self.session_id].state.hunger, 3)
 
     def test_rejects_a_missing_session_or_a_bad_action(self) -> None:
         missing = self.client.post("/sessions/missing/turns", json={"choice": 0})

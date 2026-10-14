@@ -7,8 +7,8 @@
 	let { children }: LayoutProps = $props();
 
 	onMount(() => {
-		void import('#lib/webllm/greeting.ts')
-			.then(({ logGreeting }) => logGreeting())
+		void import('#lib/webllm/engine.ts')
+			.then(({ preloadModel }) => preloadModel())
 			.catch((error) => console.error(error));
 	});
 </script>

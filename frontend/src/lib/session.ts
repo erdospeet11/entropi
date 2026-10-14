@@ -64,7 +64,7 @@ function viewFrom(body: TurnBody): TurnView {
 export async function takeTurn(
 	fetch: typeof globalThis.fetch,
 	id: string,
-	action: { text: string } | { choice: number }
+	action: { text: string; narration?: string; summary?: string } | { choice: number }
 ): Promise<TurnView> {
 	let response: Response;
 	try {

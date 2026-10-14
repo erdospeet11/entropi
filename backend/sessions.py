@@ -29,6 +29,8 @@ class TurnInput(BaseModel):
 
     text: str | None = None
     choice: int | None = None
+    narration: str | None = None
+    summary: str | None = None
 
     @model_validator(mode="after")
     def one_action(self) -> "TurnInput":
@@ -40,6 +42,16 @@ class TurnInput(BaseModel):
         if self.choice is not None and self.choice < 0:
             raise ValueError("Choice index must be zero or greater.")
         self.text = text or None
+        if self.narration is not None:
+            narration = self.narration.strip()
+            if not narration:
+                raise ValueError("Narration must not be blank.")
+            self.narration = narration
+        if self.summary is not None:
+            summary = self.summary.strip()
+            if not summary:
+                raise ValueError("Summary must not be blank.")
+            self.summary = summary
         return self
 
 
@@ -74,12 +86,8 @@ def starting_state() -> GameState:
         hunger=3,
         hunger_max=10,
         location="Forest clearing",
-        inventory=["Rusty lantern", "Pocket knife", "2 coins"],
-        timeline=[
-            "You woke up in the forest",
-            "A raven watched from a branch",
-            "You found a path heading north",
-        ],
+        inventory=["Rusty sword", "Heal potion"],
+        timeline=[],
         visual_key="forest_clearing",
     )
 
@@ -132,7 +140,10 @@ def take_turn(session_id: str, turn: TurnInput) -> TurnResult:
         raise KeyError(session_id)
     action = action_from(stored.choices, turn)
     payload = TurnPayload.model_validate(completion(stored.state, action))
+    if turn.narration is not None:
+        payload = payload.model_copy(update={"narration": turn.narration})
     state = apply_turn(stored.state, payload)
-    state = state.model_copy(update={"timeline": [*state.timeline, payload.narration]})
+    entry = turn.summary if turn.summary is not None else payload.narration
+    state = state.model_copy(update={"timeline": [*state.timeline, entry]})
     SESSIONS[session_id] = StoredSession(state=state, choices=list(payload.choices))
     return TurnResult(payload=payload, state=state)

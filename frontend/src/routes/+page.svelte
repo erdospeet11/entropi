@@ -1,28 +1,50 @@
 <script lang="ts">
 	import { takeTurn, type GameState } from '#lib/session.ts';
+	import { narrateTurn } from '#lib/webllm/narrate.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
-	let state = $state<GameState | null>(data.state);
-	let narration = $state(data.narration);
-	let choices = $state(data.choices);
+	type TranscriptLine = {
+		role: 'player' | 'narration';
+		text: string;
+	};
+
+	let game: GameState | null = $state(data.state);
+	let messages: TranscriptLine[] = $state(
+		data.narration ? [{ role: 'narration', text: data.narration }] : []
+	);
 	let line = $state('');
 	let sending = $state(false);
 	let turnError = $state('');
+	let thread: HTMLElement | null = $state(null);
 
-	async function send(action: { text: string } | { choice: number }) {
-		if (sending || !data.id) return;
-		if ('text' in action && !action.text.trim()) return;
+	$effect(() => {
+		messages;
+		turnError;
+		thread?.scrollTo({ top: thread.scrollHeight });
+	});
+
+	async function send(raw: string) {
+		const said = raw.trim();
+		if (!said || sending || !data.id) return;
+		if (!game) return;
+		const prior = messages;
+		messages = [...messages, { role: 'player', text: said }];
 		sending = true;
 		turnError = '';
 		try {
-			const turn = await takeTurn(fetch, data.id, action);
-			state = turn.state;
-			narration = turn.narration;
-			choices = turn.choices;
-			if ('text' in action) line = '';
+			const told = await narrateTurn(game, said, prior);
+			const turn = await takeTurn(fetch, data.id, {
+				text: said,
+				narration: told.narration,
+				summary: told.summary
+			});
+			game = turn.state;
+			messages = [...messages, { role: 'narration', text: turn.narration }];
+			line = '';
 		} catch (error) {
+			messages = prior;
 			turnError = error instanceof Error ? error.message : 'Could not take a turn.';
 		} finally {
 			sending = false;
@@ -33,7 +55,7 @@
 		if (event.key !== 'Enter') return;
 		event.preventDefault();
 		const field = event.currentTarget;
-		if (field instanceof HTMLInputElement) void send({ text: field.value });
+		if (field instanceof HTMLInputElement) void send(field.value);
 	}
 
 	function submit(event: SubmitEvent) {
@@ -41,21 +63,21 @@
 		const form = event.currentTarget;
 		if (!(form instanceof HTMLFormElement)) return;
 		const field = form.elements.namedItem('line');
-		void send({ text: field instanceof HTMLInputElement ? field.value : line });
+		void send(field instanceof HTMLInputElement ? field.value : line);
 	}
 </script>
 
-<div class="grid h-screen grid-cols-[3fr_4fr_3fr]">
-	<aside class="p-4">
+<div class="grid h-screen min-h-0 grid-cols-[16rem_minmax(0,1fr)_16rem]">
+	<aside class="min-h-0 overflow-y-auto p-4">
 		<h2>Player</h2>
-		{#if state}
-			<p>Name: {state.name}</p>
-			<p>Health: {state.health} / {state.health_max}</p>
-			<p>Hunger: {state.hunger} / {state.hunger_max}</p>
-			<p>Location: {state.location}</p>
+		{#if game}
+			<p>Name: {game.name}</p>
+			<p>Health: {game.health} / {game.health_max}</p>
+			<p>Hunger: {game.hunger} / {game.hunger_max}</p>
+			<p>Location: {game.location}</p>
 
 			<h2>Inventory</h2>
-			{#each state.inventory as item, index (index)}
+			{#each game.inventory as item, index (index)}
 				<p>{item}</p>
 			{/each}
 		{:else}
@@ -63,32 +85,41 @@
 		{/if}
 	</aside>
 
-	<main class="my-16 border-x border-black p-4">
-		{#if narration}
-			<p>{narration}</p>
-		{/if}
-		{#if turnError}
-			<p>{turnError}</p>
-		{/if}
-		<div class="mt-4 flex flex-col items-start gap-2">
-			{#each choices as choice, index (index)}
-				<button
-					class="svelte-button"
-					type="button"
-					disabled={sending || !data.id}
-					onclick={() => send({ choice: index })}
-				>
-					{choice}
-				</button>
+	<main class="flex min-h-0 flex-col border-x border-black">
+		<div class="thread" bind:this={thread}>
+			{#each messages as message, index (index)}
+				{#if message.role === 'player'}
+					<p class="player-line">{message.text}</p>
+				{:else}
+					<p class="narration-line">{message.text}</p>
+				{/if}
 			{/each}
+			{#if sending}
+				<p class="narration-line">Answering…</p>
+			{/if}
+			{#if turnError}
+				<p class="text-center">{turnError}</p>
+			{/if}
 		</div>
+
+		<form class="flex items-end gap-2 border-t border-black p-4" onsubmit={submit}>
+			<input
+				class="h-24 min-w-0 flex-1"
+				name="line"
+				type="text"
+				bind:value={line}
+				disabled={sending || !data.id}
+				onkeydown={onKeydown}
+			/>
+			<button class="h-10 svelte-button" type="submit" disabled={sending || !data.id}>button</button>
+		</form>
 	</main>
 
-	<aside class="p-4">
+	<aside class="min-h-0 overflow-y-auto p-4">
 		<h2>Timeline</h2>
-		{#if state}
+		{#if game}
 			<ul>
-				{#each state.timeline as entry, index (index)}
+				{#each game.timeline as entry, index (index)}
 					<li>{entry}</li>
 				{/each}
 			</ul>
@@ -96,19 +127,33 @@
 	</aside>
 </div>
 
-<form class="fixed bottom-0 left-1/2 flex -translate-x-1/2 items-end" onsubmit={submit}>
-	<input
-		class="h-50 w-100"
-		name="line"
-		type="text"
-		bind:value={line}
-		disabled={sending || !data.id}
-		onkeydown={onKeydown}
-	/>
-	<button class="h-10 svelte-button" type="submit" disabled={sending || !data.id}>button</button>
-</form>
-
 <style>
+	.thread {
+		display: flex;
+		min-height: 0;
+		flex: 1;
+		flex-direction: column;
+		gap: 1rem;
+		overflow-y: auto;
+		padding: 1rem;
+	}
+
+	.player-line {
+		align-self: flex-end;
+		max-width: 70%;
+		border: 1px solid black;
+		border-radius: 1.25rem;
+		background: #f3f3f3;
+		padding: 0.5rem 1rem;
+	}
+
+	.narration-line {
+		align-self: center;
+		width: min(100%, 40rem);
+		border: 1px solid black;
+		padding: 0.75rem 1rem;
+	}
+
 	.svelte-button {
 		border: 1px solid black;
 		border-radius: 4px;

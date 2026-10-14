@@ -7,7 +7,6 @@ export const load: PageServerLoad = async () => {
 		return {
 			id: game.id,
 			narration: game.narration,
-			choices: game.choices,
 			state: game.state,
 			loadError: ''
 		};
@@ -15,7 +14,6 @@ export const load: PageServerLoad = async () => {
 		return {
 			id: null,
 			narration: '',
-			choices: [],
 			state: null,
 			loadError: error instanceof Error ? error.message : 'Could not start a game.'
 		};
